@@ -1,5 +1,5 @@
 # coding=utf-8
-import jsondemo
+import json
 
 json_data = {
     "widget": {
@@ -44,34 +44,34 @@ object_data = {
 
 # dumps
 
-json_data_string = jsondemo.dumps(json_data)
+json_data_string = json.dumps(json_data)
 print json_data_string
-print jsondemo.dumps(json_data, indent=4)
+print json.dumps(json_data, indent=4)
 
-print jsondemo.dumps(json_data["widget"]["debug"])
-print jsondemo.dumps(json_data["widget"]["image"]["name"])
-print jsondemo.dumps(json_data["widget"]["window"]["width"])
-print jsondemo.dumps(json_data["widget"]["text"]["data"])
+print json.dumps(json_data["widget"]["debug"])
+print json.dumps(json_data["widget"]["image"]["name"])
+print json.dumps(json_data["widget"]["window"]["width"])
+print json.dumps(json_data["widget"]["text"]["data"])
 
 try:
-    print jsondemo.dumps(object_data)
+    print json.dumps(object_data)
 except Exception as e:
     print e
 
 
-class CustomJsonEncoder(jsondemo.JSONEncoder):
+class CustomJsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Company):
             return {'__custom_object__': True, 'class_name': 'Company', 'arg': obj.name}
         return super(self, CustomJsonEncoder).default(obj)
 
-complex_string = jsondemo.dumps(object_data, cls=CustomJsonEncoder, indent=4)
+complex_string = json.dumps(object_data, cls=CustomJsonEncoder, indent=4)
 print complex_string
 
 # loads
 
-print jsondemo.loads(json_data_string)
-print cmp(json_data, jsondemo.loads(json_data_string)) == 0
+print json.loads(json_data_string)
+print cmp(json_data, json.loads(json_data_string)) == 0
 
 
 def custom_json_decoder(dic):
@@ -80,6 +80,6 @@ def custom_json_decoder(dic):
     return dic
 
 
-complex_data = jsondemo.loads(complex_string, object_hook=custom_json_decoder)
+complex_data = json.loads(complex_string, object_hook=custom_json_decoder)
 print complex_data["company"]
 print complex_data["company"].name

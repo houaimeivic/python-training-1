@@ -14,10 +14,14 @@ def str_to_object_list(string, class_object):
 def article_match_author(filename):
     with open(filename, "w") as file:
         for article in articles:
+            author_name = "佚名"
             for author in authors:
-                author_name = author.name if article.is_written_by(author) else "佚名"
-                file.writelines("标题:{},作者:{}\n".format(article.title, author_name))
-                break
+                if article.is_written_by(author):
+                    author_name = author.name
+                else:
+                    continue
+            file.writelines("标题:{},作者:{}\n".format(article.title, author_name))
+
 
 if __name__ == "__main__":
     print "==>begin"

@@ -15,10 +15,8 @@ def article_match_author(filename):
     with open(filename, "w") as file:
         for article in articles:
             for author in authors:
-                if article.is_written_by(author):
-                    file.writelines("标题:{},作者{}\n".format(article.title, author.name))
-                else:
-                    continue
+                author_name = author.name if article.is_written_by(author) else "佚名"
+                file.writelines("标题:{},作者:{}\n".format(article.title, author_name))
 
 if __name__ == "__main__":
     print "==>begin"

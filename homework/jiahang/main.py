@@ -4,26 +4,21 @@ import json
 from article import Article
 from author import Author
 
-def str_to_object_list(str,object):
-    list_json = json.loads(str)
+def str_to_object_list(string, class_object):
+    list_json = json.loads(string)
     lists = []
-    for dict in list_json:
-        lists.append(object(dict))
+    for dictionary in list_json:
+        lists.append(class_object(dictionary))
     return lists
 
 def article_match_author(filename):
-    clear_file = open(filename, "w")
-    clear_file.close()
-    file = open(filename, "a")
-    try:
+    with open(filename, "w") as file:
         for article in articles:
             for author in authors:
                 if article.is_written_by(author):
                     file.writelines("标题:{},作者{}\n".format(article.title, author.name))
-    except Exception as e:
-        print e.message
-    finally:
-        file.close()
+                else:
+                    continue
 
 if __name__ == "__main__":
     print "==>begin"

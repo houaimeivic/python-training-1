@@ -1,9 +1,9 @@
 class Article(object):
-    def __init__(self,dict):
-        self.user_id = dict["userId"]
-        self.id = dict["id"]
-        self.title = dict["title"]
-        self.body = dict["body"]
+    def __init__(self, dictionary):
+        self.user_id = dictionary["userId"]
+        self.id = dictionary["id"]
+        self.title = dictionary["title"]
+        self.body = dictionary["body"]
     def is_written_by(self,author):
         return self.user_id == author.id
 
